@@ -58,6 +58,7 @@ create-ec2_cron_function:
 		--runtime python2.7 \
 		--timeout 120 \
 		--memory-size 512 \
+		--profile lambda_user \
 
 create-ec2_cron_tasks:
 	aws lambda create-function \
@@ -69,6 +70,7 @@ create-ec2_cron_tasks:
 		--runtime python2.7 \
 		--timeout 120 \
 		--memory-size 512 \
+		--profile lambda_user \
 
 create-ec2_start:
 	aws lambda create-function \
@@ -80,6 +82,7 @@ create-ec2_start:
 		--runtime python2.7 \
 		--timeout 120 \
 		--memory-size 512 \
+		--profile lambda_user \
 
 create-ec2_stop:
 	aws lambda create-function \
@@ -91,11 +94,13 @@ create-ec2_stop:
 		--runtime python2.7 \
 		--timeout 120 \
 		--memory-size 512 \
+		--profile lambda_user \
 
 update-ec2_cron_function: build-ec2_cron_function
 	aws lambda update-function-code \
 		--function-name $(FUNCTION1) \
 		--region $(REGION) \
+		--profile lambda_user \
 		--zip-file fileb://$(FUNCTION1)/$(FUNCTION1).zip \
 		--publish \
 
@@ -103,6 +108,7 @@ update-ec2_cron_tasks: build-ec2_cron_tasks
 	aws lambda update-function-code \
 		--function-name $(FUNCTION2) \
 		--region $(REGION) \
+		--profile lambda_user \
 		--zip-file fileb://$(FUNCTION2)/$(FUNCTION2).zip \
 		--publish \
 
@@ -110,6 +116,7 @@ update-ec2_start: build-ec2_start
 	aws lambda update-function-code \
 		--function-name $(FUNCTION3) \
 		--region $(REGION) \
+		--profile lambda_user \
 		--zip-file fileb://$(FUNCTION3)/$(FUNCTION3).zip \
 		--publish \
 
@@ -117,6 +124,7 @@ update-ec2_stop: build-ec2_stop
 	aws lambda update-function-code \
 		--function-name $(FUNCTION4) \
 		--region $(REGION) \
+		--profile lambda_user \
 		--zip-file fileb://$(FUNCTION4)/$(FUNCTION4).zip \
 		--publish \
 
