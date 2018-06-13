@@ -1,12 +1,11 @@
-
 import boto3
 
 
-def trigger_handler(event, context):
+def lambda_handler(event, context):
     #Get IP addresses of EC2 instances
     client = boto3.client('ec2')
     instDict=client.describe_instances(
-            Filters=[{'Name':'tag:Name','Values':['myec2cronjob']}]
+            Filters=[{'Name':'tag:Name','Values':['cronjob']}]
         )
     hostList=[]
     for r in instDict['Reservations']:
@@ -22,6 +21,7 @@ def trigger_handler(event, context):
             LogType='Tail',
             Payload='{"IP":"'+ host +'"}'
         )
+
     return{
         'message' : "ec2 cron task started"
     }
